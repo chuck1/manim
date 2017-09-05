@@ -580,10 +580,12 @@ class ConstructQuadraticApproximation(ExampleApproximationWithCos):
         self.set_c0_to_one()
         self.let_c1_and_c2_vary()
         self.show_tangent_slope()
+        #return
         self.compute_cosine_derivative()
         self.compute_polynomial_derivative()
         self.let_c2_vary()
         self.point_out_negative_concavity()
+        return
         self.compute_cosine_second_derivative()
         self.show_matching_curvature()
         self.show_matching_tangent_lines()

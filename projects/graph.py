@@ -84,10 +84,15 @@ class Graph(VMobject):
         v.p = p
         
         for e in self.edges:
-            if (e.u == v) or (e.v == v):
-                old_line = e.line
-                e.line = e.generate_line()
-                yield Transform(old_line, e.line)
+            line = e.line
+            if e.u == v:
+                yield line.put_start_and_end_on
+                yield p
+                yield line.get_end()
+            elif e.v == v:
+                yield line.put_start_and_end_on
+                yield line.get_start()
+                yield p
         
         yield MoveAlongPath(v.circle, l)
 
@@ -98,7 +103,8 @@ class Basic(Scene):
             
         self.play(Animation(g))
 
-        self.play(*list(g.anim_move_vertex(0, [0,0,0])))
+        args = g.anim_move_vertex(0, [0,0,0])
+        self.play(*args)
 
         return
 
@@ -107,7 +113,7 @@ class Basic(Scene):
         #self.play(ShowCreation(circle))
         for c in circles:
             self.play(Animation(c, run_time = 0))
-
+        
         self.play(*[MoveAlongPath(c, l) for c, l in zip(circles, lines)])
 
         self.dither()

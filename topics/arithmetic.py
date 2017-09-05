@@ -8,20 +8,21 @@ from mobject.tex_mobject import TexMobject
 
 class RearrangeEquation(Scene):
     def construct(
-        self, 
-        start_terms, 
-        end_terms, 
-        index_map,
-        path_arc = np.pi,
-        start_transform = None,
-        end_transform = None,
-        leave_start_terms = False,
-        transform_kwargs = {},
-        ):
+            self, 
+            start_terms, 
+            end_terms, 
+            index_map,
+            path_arc = np.pi,
+            start_transform = None,
+            end_transform = None,
+            leave_start_terms = False,
+            transform_kwargs = {},
+            ):
         transform_kwargs["path_func"] = path
         start_mobs, end_mobs = self.get_mobs_from_terms(
             start_terms, end_terms
-        )
+            )
+
         if start_transform:
             start_mobs = start_transform(Mobject(*start_mobs)).split()
         if end_transform:
@@ -30,14 +31,14 @@ class RearrangeEquation(Scene):
         unmatched_end_indices   = set(range(len(end_mobs)))
         unmatched_start_indices.difference_update(
             [n%len(start_mobs) for n in index_map]
-        )
+            )
         unmatched_end_indices.difference_update(
             [n%len(end_mobs) for n in index_map.values()]
-        )
+            )
         mobject_pairs = [
             (start_mobs[a], end_mobs[b])
             for a, b in index_map.iteritems()
-        ]+ [
+            ] + [
             (Point(end_mobs[b].get_center()), end_mobs[b])
             for b in unmatched_end_indices
         ]

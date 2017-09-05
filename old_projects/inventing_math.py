@@ -8,12 +8,14 @@ import operator as op
 from random import sample
 
 
-from animation import *
+from animation import Animation
 from mobject import *
+from mobject.tex_mobject import TexMobject
 from constants import *
 from mobject.region import  *
-from scene import Scene, RearrangeEquation
-from script_wrapper import command_line_create_scene
+from scene import Scene
+from topics.arithmetic import RearrangeEquation
+#from script_wrapper import command_line_create_scene
 
 # from inventing_math_images import *
 
@@ -2169,6 +2171,6 @@ class DiscoveryAndInvention(Scene):
 
 
 
-if __name__ == "__main__":
-    command_line_create_scene(MOVIE_PREFIX)
+#if __name__ == "__main__":
+#    command_line_create_scene(MOVIE_PREFIX)
 
