@@ -31,6 +31,51 @@ from topics.graph_scene import GraphScene
 from old_projects.eoc.chapter8 import AreaIsDerivative
 from topics.common_scenes import OpeningQuote, PatreonThanks
 
+class Multiply(Scene):
+    def anim_mul(self, a, bs):
+        c = TexMobject("(", a.get_tex_string(), ")", bs)
+    
+        c.shift(a.get_critical_point(LEFT) - c[1].get_critical_point(LEFT))
+        
+        # move existing term to new postion
+        self.play(Transform(a, c[1], run_time=0))
+        
+        # draw parentheses
+        self.play(
+                Write(c[0]),
+                Write(c[2]))
+        
+        # draw multiplier
+        self.play(
+               Write(c[3]))
+    
+        return c
+
+    def anim_distribute(self, a):
+
+        # b = a.distribute()
+        
+        # example
+        # (a + b) c  ==>  (a c + b c)
+
+        # * identify terms in Add that will be moved to new locations. do this for initial and final
+        #   * parentheses
+        #   * 'a' and 'b'
+        #   * '+'
+
+        pass
+
+    def construct(self):
+        a = TexMobject("x + y")
+
+        self.play(Write(a))
+        
+        a = self.anim_mul(a, "a")
+
+        # a = self.anim_distribute(a)
+        
+        return 
+
 def derivative(func, x, n = 1, dx = 0.01):
     samples = [func(x + (k - n/2)*dx) for k in range(n+1)]
     while len(samples) > 1:
