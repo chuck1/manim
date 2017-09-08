@@ -76,6 +76,28 @@ class Multiply(Scene):
         
         return 
 
+
+
+
+class TestObjects(Scene):
+    def construct(self):
+        f = TexMobject("x + y + z")
+        
+        o = Mobject(*f.submobjects[:3])
+
+        print(f.submobjects)
+
+        self.play(Write(o))
+
+        self.play(Transform(o, Circle()))
+
+
+
+
+
+
+
+
 def derivative(func, x, n = 1, dx = 0.01):
     samples = [func(x + (k - n/2)*dx) for k in range(n+1)]
     while len(samples) > 1:
