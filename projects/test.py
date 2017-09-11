@@ -61,28 +61,7 @@ class Test(scene.Scene):
             for anims in h.get_animations():
                 self.play(*anims)
 
-        return
-
-        print(g.get_animations())
-        
-        o_f = f.get_mobject()
-
-        for anims in g.get_animations():
-            print anims
-            for anim in anims:
-                print anim
-                print anim.mobject
-                print anim.mobject.get_critical_point(ORIGIN)
-                for subo in anim.mobject.submobjects:
-                    if isinstance(subo, mobject.tex_mobject.TexMobject):
-                        print repr(subo.tex_string)
-                        if subo.tex_string == 'b':
-                            self.play(animation.simple_animations.Write(subo))
-                            self.play(animation.Animation(subo))
-                            pass
-
-            self.play(*anims)
-        
+       
         
    
 
