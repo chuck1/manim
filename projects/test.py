@@ -24,7 +24,11 @@ def mobject_constructor(l):
     #print l
     return mobject.Mobject(*l)
 
+def transform_copy_constructor(s, d):
+    return animation.transform.Transform(s.copy(), d)
+
 es.Transform.constructor = animation.transform.Transform
+es.TransformCopy.constructor = transform_copy_constructor
 es.Write.anim_write_constructor = animation.simple_animations.Write
 es.Mobject.mobject_constructor = mobject_constructor
 es.TexMobject.texmobject_constructor = mobject.tex_mobject.TexMobject
@@ -37,7 +41,7 @@ class Test(scene.Scene):
         y = s.symbol('y')
     
         f = x * y
-        g = f * (a * b)
+        g = f * (a + b)
     
         print(f)
         print(g)
@@ -50,6 +54,12 @@ class Test(scene.Scene):
 
         for anims in g.get_animations():
             self.play(*anims)
+        
+        changed, h = g.expand()
+
+        if changed:
+            for anims in h.get_animations():
+                self.play(*anims)
 
         return
 
