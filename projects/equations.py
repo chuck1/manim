@@ -88,10 +88,16 @@ class TestObjects(Scene):
         print(f.submobjects)
 
         self.play(Write(o))
+        
+        c = Circle()
 
-        self.play(Transform(o, Circle()))
+        t = ReplacementTransform(o, c)
+    
+        r = self.play(t)
 
+        print('transform returns',t)
 
+        self.play(Uncreate(c))
 
 
 
