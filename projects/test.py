@@ -19,10 +19,10 @@ es.TexMobject.texmobject_constructor
 
 s = es.Storage()
 
-def mobject_constructor(l):
+def mobject_constructor(*args):
     #print "mobject_constructor"
     #print l
-    return mobject.Mobject(*l)
+    return mobject.Mobject(*args)
 
 def transform_constructor(s, d):
     return animation.transform.ReplacementTransform(s, d)
@@ -64,22 +64,23 @@ class Test(scene.Scene):
         if changed:
             [self.play(*anims) for anims in h.get_animations()]
 
-class Test2(scene.Scene):
-    def construct(self):
-        a = s.symbol('a')
-        b = s.symbol('b')
-        x = s.symbol('x')
-        y = s.symbol('y')
-    
-        f = x * y
-        g = f * (a + b)
-        
-        m = g.get_mobject()
-
-        self.play(animation.simple_animations.Write(m))
-        self.play(animation.simple_animations.Uncreate(m, run_time = 0))
         self.dither()
 
-
+        print(f)
+        print(g)
+        print(h)
+        
+class Test2(scene.Scene):
+    def construct(self):
+        x = s.symbol('x')
+    
+        f = x.intpower(2,1)
+        
+        self.play(animation.simple_animations.Write(f.get_mobject()))
+        
+        print('derivative')
+        d = f.derivative(x)
+        
+        [self.play(*anims) for anims in d.get_animations()]
 
 

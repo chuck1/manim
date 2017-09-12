@@ -100,8 +100,19 @@ class TestObjects(Scene):
         self.play(Uncreate(c))
 
 
+class Power(Scene):
 
+    def construct(self):
 
+        f = TexMobject("x^{1/1}")
+
+        for so in f.submobjects:
+            print(so)
+
+        self.play(Write(f.submobjects[0]))
+        self.play(Write(f.submobjects[1]))
+        
+        self.play(Transform(f.submobjects[1], Circle()))
 
 
 def derivative(func, x, n = 1, dx = 0.01):
