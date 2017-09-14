@@ -88,5 +88,35 @@ class Test2(scene.Scene):
             print(anims)
             self.play(*anims)
 
+class GeoAlg(scene.Scene):
+    def construct(self):
+        
+        e1 = s.symbol("\\mathbf{e}_1")
+        e2 = s.symbol("\\mathbf{e}_2")
+        e3 = s.symbol("\\mathbf{e}_3")
+        r0 = s.symbol("r_0")
+        r12 = s.symbol("r_{1,2}")
+        r13 = s.symbol("r_{1,3}")
+        r23 = s.symbol("r_{2,3}")
+        v1 = s.symbol("v_1")
+        v2 = s.symbol("v_2")
+        v3 = s.symbol("v_3")
+        
+        rotor2 = r12 * e1 * e2 + r13 * e1 * e3 + r23 * e2 * e3
+        
+        rotor   = r0 + rotor2
+        rotor_c = r0 - rotor2
+
+        self.play(animation.simple_animations.Write(rotor.get_mobject()))
+        self.play(animation.simple_animations.Write(rotor_c.get_mobject()))
+
+        
+        
+        
+
+
+
+
+
 
 
