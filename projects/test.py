@@ -38,6 +38,8 @@ es.Uncreate.anim_uncreate_constructor = animation.simple_animations.Uncreate
 es.Mobject.mobject_constructor = mobject_constructor
 es.TexMobject.texmobject_constructor = mobject.tex_mobject.TexMobject
 
+es.Factory().init()
+
 class Test(scene.Scene):
     
     def construct(self):
@@ -80,7 +82,11 @@ class Test2(scene.Scene):
         
         print('derivative')
         d = f.derivative(x)
-        
-        [self.play(*anims) for anims in d.get_animations()]
+        print(d)
+
+        for anims in d.get_animations():
+            print(anims)
+            self.play(*anims)
+
 
 
