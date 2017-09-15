@@ -106,10 +106,49 @@ class GeoAlg(scene.Scene):
         
         rotor   = r0 + rotor2
         rotor_c = r0 - rotor2
+        
+        vec     = v1 * e1 + v2 * e2 + v3 * e3
 
-        self.play(animation.simple_animations.Write(rotor.get_mobject()))
-        self.play(animation.simple_animations.Write(rotor_c.get_mobject()))
+        mo_vec     = vec.get_mobject()
+        mo_rotor   = rotor.get_mobject()
+        mo_rotor_c = rotor_c.get_mobject()
 
+        mo_rotor.shift(DOWN)
+        mo_rotor_c.shift(2*DOWN)
+        
+        f = rotor_c * vec * rotor
+        
+        mo_f = f.get_mobject()
+
+        mo_f.scale(0.5)
+
+        print(rotor_c)
+
+        a = rotor_c
+
+        def repeat(a, f):
+            b = f(a)
+            while b:
+                print(b)
+                a = b
+                b = f(a)
+            return a
+
+        a = repeat(a, es.Operand.iso_bring_up_add)
+
+        a = repeat(a, es.Operand.simplify_once_top)
+       
+        #print(a.str_debug())
+
+        return
+
+        self.play(
+                animation.simple_animations.Write(mo_f),
+                #animation.simple_animations.Write(mo_vec),
+                #animation.simple_animations.Write(mo_rotor),
+                #animation.simple_animations.Write(mo_rotor_c),
+                )
+        
         
         
         
