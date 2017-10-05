@@ -61,16 +61,16 @@ class Test(scene.Scene):
         # the second is the new equation.
         # As before, animations are producted to transform the old equation to the new
         # equation.
-        changed, h = g.expand()
+        
+        ret = g.expand()
 
-        if changed:
-            [self.play(*anims) for anims in h.get_animations()]
+        if ret:
+            [self.play(*anims) for anims in ret.get_animations()]
 
         self.dither()
 
         print(f)
         print(g)
-        print(h)
         
 class Test2(scene.Scene):
     def construct(self):
