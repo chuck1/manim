@@ -1,8 +1,9 @@
-from helpers import *
+import functools
+from manim.helpers import *
 
-from vectorized_mobject import VMobject, VGroup, VectorizedPoint
-from svg_mobject import SVGMobject, VMobjectFromSVGPathstring
-from topics.geometry import BackgroundRectangle
+from .vectorized_mobject import VMobject, VGroup, VectorizedPoint
+from .svg_mobject import SVGMobject, VMobjectFromSVGPathstring
+from manim.topics.geometry import BackgroundRectangle
 
 import collections
 import sys
@@ -85,13 +86,13 @@ class TexMobject(SVGMobject):
         if tex == "\\substack":
             tex = ""
         for t1, t2 in ("\\left", "\\right"), ("\\right", "\\left"):
-            should_replace = reduce(op.and_, [
+            should_replace = functools.reduce(op.and_, [
                 t1 in tex,
                 t2 not in tex,
                 len(tex) > len(t1) and tex[len(t1)] in "()[]\\"
             ])
             if should_replace:
-                print len(t1)
+                print(len(t1))
                 tex = tex.replace(t1, "\\big")
         if tex == "":
             tex = "\\quad"
@@ -285,9 +286,7 @@ def generate_tex_file(expression, template_tex_file):
         tex_hash(expression, template_tex_file)
     ) + ".tex"
     if not os.path.exists(result):
-        print "Writing \"%s\" to %s"%(
-            "".join(expression), result
-        )
+        print("Writing \"%s\" to %s"%("".join(expression), result))
         with open(template_tex_file, "r") as infile:
             body = infile.read()
             body = body.replace(TEX_TEXT_TO_REPLACE, expression)

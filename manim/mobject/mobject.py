@@ -5,7 +5,7 @@ import copy
 from PIL import Image
 from colour import Color
 
-from helpers import *
+from manim.helpers import *
 
 
 #TODO: Explain array_attrs
@@ -120,7 +120,7 @@ class Mobject(object):
             func(mob)
 
     def shift(self, *vectors):
-        total_vector = reduce(op.add, vectors)
+        total_vector = functools.reduce(op.add, vectors)
         for mob in self.family_members_with_points():
            mob.points = mob.points.astype('float')
            mob.points += total_vector
@@ -448,7 +448,7 @@ class Mobject(object):
 
     def apply_complex_function(self, function, **kwargs):
         return self.apply_function(
-            lambda (x, y, z) : complex_to_R3(function(complex(x, y))),
+            lambda x, y, z : complex_to_R3(function(complex(x, y))),
             **kwargs
         )
 
@@ -659,10 +659,9 @@ class Mobject(object):
     def align_submobjects(self, mobject):
         #If one is empty, and the other is not,
         #push it into its submobject list
-        self_has_points, mob_has_points = [
-            mob.get_num_points() > 0
-            for mob in self, mobject
-        ]
+        self_has_points = [mob.get_num_points() > 0 for mob in self]
+        mob_has_points = [mob.get_num_points() > 0 for mob in mobject]
+
         if self_has_points and not mob_has_points:
             mobject.null_point_align(self)
         elif mob_has_points and not self_has_points:

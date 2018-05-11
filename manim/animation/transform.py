@@ -4,12 +4,12 @@ import inspect
 import copy
 import warnings
 
-from helpers import *
+from manim.helpers import *
 
-from animation import Animation
-from simple_animations import DelayByOrder
-from mobject import Mobject, Point, VMobject, Group
-from topics.geometry import Dot
+from .animation import Animation
+from .simple_animations import DelayByOrder
+from manim.mobject import Mobject, Point, VMobject, Group
+from manim.topics.geometry import Dot
 
 class Transform(Animation):
     CONFIG = {

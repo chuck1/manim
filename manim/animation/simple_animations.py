@@ -1,13 +1,13 @@
 import numpy as np
 import itertools as it
 
-from helpers import *
+from manim.helpers import *
 
-from mobject import Mobject
-from mobject.vectorized_mobject import VMobject
-from mobject.tex_mobject import TextMobject
-from animation import Animation
-from animation import sync_animation_run_times_and_rate_funcs
+from manim.mobject import Mobject
+from manim.mobject.vectorized_mobject import VMobject
+from manim.mobject.tex_mobject import TextMobject
+from .animation import Animation
+from .animation import sync_animation_run_times_and_rate_funcs
 
 
 class Rotating(Animation):

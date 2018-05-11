@@ -1,7 +1,7 @@
-from helpers import *
+from manim.helpers import *
 
-from mobject import Mobject
-from mobject.vectorized_mobject import VMobject, VGroup
+from manim.mobject import Mobject
+from manim.mobject.vectorized_mobject import VMobject, VGroup
 
 class Arc(VMobject):
     CONFIG = {

@@ -4,12 +4,12 @@ import numpy as np
 import warnings
 import time
 import os
-import progressbar
+#import progressbar
 import inspect
 from copy import deepcopy
 
-from helpers import *
-from mobject import Mobject
+from manim.helpers import *
+from manim.mobject import Mobject
 
 class Animation(object):
     CONFIG = {

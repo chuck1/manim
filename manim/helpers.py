@@ -1,3 +1,4 @@
+import functools
 import numpy as np
 import itertools as it
 import operator as op
@@ -10,7 +11,7 @@ import re
 import os
 from scipy import linalg
 
-from constants import *
+from manim.constants import *
 
 CLOSED_THRESHOLD = 0.01
 STRAIGHT_PATH_THRESHOLD = 0.01
@@ -268,16 +269,18 @@ def digest_config(obj, kwargs, local_args = {}):
     obj.__dict__ = merge_config(all_dicts)
 
 def merge_config(all_dicts):
-    all_config = reduce(op.add, [d.items() for d in all_dicts])
+    #all_config = functools.reduce(op.add, [d.items() for d in all_dicts])
+
     config = dict()
-    for c in all_config:
-        key, value = c
-        if not key in config:
-            config[key] = value
-        else:
-            #When two dictionaries have the same key, they are merged.
-            if isinstance(value, dict) and isinstance(config[key], dict):
-                config[key] = merge_config([config[key], value])
+    for d in all_dicts:
+        for c in d.items(): #all_config:
+            key, value = c
+            if not key in config:
+                config[key] = value
+            else:
+                #When two dictionaries have the same key, they are merged.
+                if isinstance(value, dict) and isinstance(config[key], dict):
+                    config[key] = merge_config([config[key], value])
     return config
 
 def digest_locals(obj, keys = None):
@@ -505,11 +508,12 @@ def composition(func_list):
     """
     func_list should contain elements of the form (f, args)
     """
-    return reduce(
-        lambda (f1, args1), (f2, args2) : (lambda x : f1(f2(x, *args2), *args1)), 
-        func_list,
-        lambda x : x
-    )
+    def f(t1, t2):
+        f1, args1 = t1
+        f2, args2 = t2
+        return lambda x : f1(f2(x, *args2), *args1)
+
+    return reduce(f, func_list, lambda x : x)
 
 def remove_nones(sequence):
     return filter(lambda x : x, sequence)

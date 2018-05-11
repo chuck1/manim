@@ -1,5 +1,5 @@
 from .mobject import Mobject
-from helpers import *
+from manim.helpers import *
 
 class PMobject(Mobject):
     def init_points(self):
@@ -38,10 +38,8 @@ class PMobject(Mobject):
         return self
 
     def gradient_highlight(self, start_color, end_color):
-        start_rgb, end_rgb = [
-            np.array(Color(color).get_rgb())
-            for color in start_color, end_color
-        ]
+        start_rgb = [np.array(Color(color).get_rgb()) for color in start_color]
+        end_rgb = [np.array(Color(color).get_rgb()) for color in end_color]
         for mob in self.family_members_with_points():
             num_points = mob.get_num_points()
             mob.rgbs = np.array([
@@ -131,10 +129,8 @@ class PMobject(Mobject):
         )
 
     def pointwise_become_partial(self, mobject, a, b):
-        lower_index, upper_index = [
-            int(x * mobject.get_num_points())
-            for x in a, b
-        ]
+        lower_index = [int(x * mobject.get_num_points()) for x in a]
+        upper_index = [int(x * mobject.get_num_points()) for x in b]
         for attr in self.get_array_attrs():
             full_array = getattr(mobject, attr)
             partial_array = full_array[lower_index:upper_index]

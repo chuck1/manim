@@ -2,7 +2,7 @@ import re
 
 from .mobject import Mobject
 
-from helpers import *
+from manim.helpers import *
 
 class VMobject(Mobject):
     CONFIG = {
@@ -146,10 +146,10 @@ class VMobject(Mobject):
         if len(points) <= 1:
             return self
         points = np.array(points)
-        self.set_anchors_and_handles(points, *[
-            interpolate(points[:-1], points[1:], alpha)
-            for alpha in 1./3, 2./3
-        ])
+        l1 = [interpolate(points[:-1], points[1:], alpha) for alpha in 1./3]
+        l2 = [interpolate(points[:-1], points[1:], alpha) for alpha in 2./3]
+        #self.set_anchors_and_handles(points, *[interpolate(points[:-1], points[1:], alpha) for alpha in 1./3, 2./3])
+        self.set_anchors_and_handles(points, l1, l2)
         return self
 
     def set_points_smoothly(self, points):
